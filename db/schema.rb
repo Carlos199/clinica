@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122151634) do
+ActiveRecord::Schema.define(version: 20180602012632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,24 @@ ActiveRecord::Schema.define(version: 20170122151634) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ciudades", force: :cascade do |t|
+    t.string   "codigo"
+    t.string   "nombre"
+    t.integer  "departamento_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["departamento_id"], name: "index_ciudades_on_departamento_id", using: :btree
+  end
+
+  create_table "departamentos", force: :cascade do |t|
+    t.string   "codigo"
+    t.string   "nombre"
+    t.integer  "regione_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["regione_id"], name: "index_departamentos_on_regione_id", using: :btree
+  end
+
   create_table "items", force: :cascade do |t|
     t.string   "code"
     t.string   "description"
@@ -43,6 +61,13 @@ ActiveRecord::Schema.define(version: 20170122151634) do
     t.index ["brand_id"], name: "index_items_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
     t.index ["unit_id"], name: "index_items_on_unit_id", using: :btree
+  end
+
+  create_table "regiones", force: :cascade do |t|
+    t.string   "codigo"
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sale_details", force: :cascade do |t|
@@ -62,11 +87,6 @@ ActiveRecord::Schema.define(version: 20170122151634) do
     t.datetime "updated_at", null: false
     t.integer  "state"
     t.integer  "user_id"
-  end
-
-  create_table "searches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "towns", force: :cascade do |t|
@@ -99,6 +119,8 @@ ActiveRecord::Schema.define(version: 20170122151634) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "ciudades", "departamentos"
+  add_foreign_key "departamentos", "regiones"
   add_foreign_key "items", "brands"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "units"

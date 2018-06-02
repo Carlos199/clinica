@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :ciudades
+  resources :departamentos
+  resources :regiones
   root to: 'dashboard#index'
   
   devise_for :users
