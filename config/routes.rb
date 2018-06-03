@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :forma_pagos
+  resources :pacientes
   resources :enfermeros
   resources :cargos
   resources :medicos

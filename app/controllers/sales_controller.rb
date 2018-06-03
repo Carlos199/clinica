@@ -27,7 +27,9 @@ class SalesController < ApplicationController
   def new
     last_sale = Sale.where(state: "confirmed", user: current_user).maximum('number')
     number =  (last_sale != nil) ? last_sale + 1 : 1
-    @sale = Sale.create(date: Date::current, number: number, state: "draft", user: current_user)
+    forma_pago_id = (last_sale == 0) ? last_sale : 1
+    paciente_id = (last_sale == 0) ? last_sale : 1
+    @sale = Sale.create(date: Date::current, number: number, forma_pago_id: forma_pago_id, paciente_id: paciente_id, state: "draft", user: current_user)
     @sale.sale_details.build
     params[:sale_id] = @sale.id.to_s
   end

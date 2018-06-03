@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603152309) do
+ActiveRecord::Schema.define(version: 20180603222835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,12 @@ ActiveRecord::Schema.define(version: 20180603152309) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "forma_pagos", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string   "code"
     t.string   "description"
@@ -119,6 +125,25 @@ ActiveRecord::Schema.define(version: 20180603152309) do
     t.index ["sexo_id"], name: "index_medicos_on_sexo_id", using: :btree
   end
 
+  create_table "pacientes", force: :cascade do |t|
+    t.string   "ci"
+    t.string   "nombre"
+    t.string   "apellido"
+    t.string   "direccion"
+    t.string   "telefono"
+    t.string   "celular"
+    t.date     "fecha"
+    t.string   "correo"
+    t.string   "contacto_familiar"
+    t.integer  "ciudade_id"
+    t.integer  "sexo_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "sangre"
+    t.index ["ciudade_id"], name: "index_pacientes_on_ciudade_id", using: :btree
+    t.index ["sexo_id"], name: "index_pacientes_on_sexo_id", using: :btree
+  end
+
   create_table "regiones", force: :cascade do |t|
     t.string   "codigo"
     t.string   "nombre"
@@ -139,10 +164,14 @@ ActiveRecord::Schema.define(version: 20180603152309) do
   create_table "sales", force: :cascade do |t|
     t.integer  "number"
     t.date     "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "state"
     t.integer  "user_id"
+    t.integer  "paciente_id"
+    t.integer  "forma_pago_id"
+    t.index ["forma_pago_id"], name: "index_sales_on_forma_pago_id", using: :btree
+    t.index ["paciente_id"], name: "index_sales_on_paciente_id", using: :btree
   end
 
   create_table "sexos", force: :cascade do |t|
@@ -191,4 +220,8 @@ ActiveRecord::Schema.define(version: 20180603152309) do
   add_foreign_key "medicos", "ciudades"
   add_foreign_key "medicos", "especialidades"
   add_foreign_key "medicos", "sexos"
+  add_foreign_key "pacientes", "ciudades"
+  add_foreign_key "pacientes", "sexos"
+  add_foreign_key "sales", "forma_pagos"
+  add_foreign_key "sales", "pacientes"
 end

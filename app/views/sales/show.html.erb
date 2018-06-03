@@ -2,13 +2,17 @@
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
-    			<h2>Venta</h2>
-    			<h3 class="pull-right">Número # <%= @sale.number %></h3>
+    			
+                <p><h2 >Sanasys</h2></p>
+                <h3 align="left">Cliente: <%= @sale.paciente.completo %></h3>
+                 <h3 class="pull-right">Ruc/Ci: <%= @sale.paciente.ci %></h3>
+    			
     		</div>
     		<hr>
     		<div class="row">
     			<div class="col-xs-6">
     			</div>
+                <h3 class="pull-right">Factura N° <%= @sale.number %></h3>
     			<div class="col-xs-6 text-right">
     				<address>
     					<strong>Fecha:</strong><br>

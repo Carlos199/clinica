@@ -15,6 +15,8 @@ class Sale < ApplicationRecord
 	has_many :sale_details, inverse_of: :sale, dependent: :destroy
 	has_many :items, through: :sale_details
 	belongs_to :user
+	belongs_to :paciente
+	 belongs_to :forma_pago
 
 	validates :number, presence: true
 	validates :date, presence: true
