@@ -1,0 +1,2 @@
+json.extract! medico, :id, :ci, :nro_registo, :nombre, :apellido, :direccion, :telefono, :celular, :fecha, :correo, :contacto_familiar, :especialidade_id, :ciudade_id, :created_at, :updated_at
+json.url medico_url(medico, format: :json)

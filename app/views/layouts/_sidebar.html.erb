@@ -19,7 +19,7 @@
         
         <li class="<%= current_page?(sales_path) ? "active" : "" %>">
           <a href="<%= sales_path %>">
-            Ventas
+              Facturar
             <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-shopping-cart"></span>
           </a>
         </li>   
@@ -32,11 +32,13 @@
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Almacén <span class="caret"></span>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clinica <span class="caret"></span>
             <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span>
           </a>
           <ul class="dropdown-menu forAnimate" role="menu">
-            <li class="<%= current_page?(items_path) ? "active" : "" %>"><%= link_to 'Artículos', items_path %></li>
+            <li class="<%= current_page?(medicos_path) ? "active" : "" %>"><%= link_to 'Medicos', medicos_path %></li>
+             <li class="<%= current_page?(especialidades_path) ? "active" : "" %>"><%= link_to 'Especialidades', especialidades_path %></li>
+              
           </ul>
         </li>
 

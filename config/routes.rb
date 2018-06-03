@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :medicos
+  resources :sexos
+  resources :especialidades
   resources :ciudades
   resources :departamentos
   resources :regiones
