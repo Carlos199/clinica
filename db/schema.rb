@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180602213915) do
+ActiveRecord::Schema.define(version: 20180603021834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,8 +85,10 @@ ActiveRecord::Schema.define(version: 20180602213915) do
     t.integer  "ciudade_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "sexo_id"
     t.index ["ciudade_id"], name: "index_medicos_on_ciudade_id", using: :btree
     t.index ["especialidade_id"], name: "index_medicos_on_especialidade_id", using: :btree
+    t.index ["sexo_id"], name: "index_medicos_on_sexo_id", using: :btree
   end
 
   create_table "regiones", force: :cascade do |t|
@@ -158,4 +160,5 @@ ActiveRecord::Schema.define(version: 20180602213915) do
   add_foreign_key "items", "units"
   add_foreign_key "medicos", "ciudades"
   add_foreign_key "medicos", "especialidades"
+  add_foreign_key "medicos", "sexos"
 end

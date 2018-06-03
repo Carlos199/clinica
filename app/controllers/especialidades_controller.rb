@@ -3,8 +3,24 @@ class EspecialidadesController < ApplicationController
 
   # GET /especialidades
   # GET /especialidades.json
+  PAGE_SIZE = 5
   def index
-    @especialidades = Especialidade.all
+  
+      
+      @page = (params[:page] || 0).to_i
+
+   if params[:keywords].present?
+     @keywords = params[:keywords]
+     @especialidades = Especialidade.where("lower(descripcion) LIKE '%#{@keywords.downcase}%'").order("descripcion ASC" )
+                    .offset(PAGE_SIZE * @page).limit(PAGE_SIZE)
+     number_of_records = Especialidade.where("lower(descripcion) LIKE '%#{@keywords.downcase}%'").count
+
+       else
+     @especialidades = Especialidade.order('descripcion ASC').offset(PAGE_SIZE * @page).limit(PAGE_SIZE)
+     number_of_records = Especialidade.count
+   end
+   @number_of_pages = (number_of_records % PAGE_SIZE) == 0 ? 
+                       number_of_records / PAGE_SIZE - 1 : number_of_records / PAGE_SIZE
   end
 
   # GET /especialidades/1
@@ -28,7 +44,7 @@ class EspecialidadesController < ApplicationController
 
     respond_to do |format|
       if @especialidade.save
-        format.html { redirect_to @especialidade, notice: 'Especialidade was successfully created.' }
+        format.html { redirect_to especialidades_url, notice: 'Especialidade was successfully created.' }
         format.json { render :show, status: :created, location: @especialidade }
       else
         format.html { render :new }
@@ -42,7 +58,7 @@ class EspecialidadesController < ApplicationController
   def update
     respond_to do |format|
       if @especialidade.update(especialidade_params)
-        format.html { redirect_to @especialidade, notice: 'Especialidade was successfully updated.' }
+        format.html { redirect_to especialidades_url, notice: 'Especialidade was successfully updated.' }
         format.json { render :show, status: :ok, location: @especialidade }
       else
         format.html { render :edit }
@@ -69,6 +85,6 @@ class EspecialidadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def especialidade_params
-      params.require(:especialidade).permit(:codigo, :descripcion)
+      params.require(:especialidade).permit(:descripcion)
     end
 end

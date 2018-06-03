@@ -1,29 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Especialidades</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Codigo</th>
-      <th>Descripcion</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @especialidades.each do |especialidade| %>
-      <tr>
-        <td><%= especialidade.codigo %></td>
-        <td><%= especialidade.descripcion %></td>
-        <td><%= link_to 'Show', especialidade %></td>
-        <td><%= link_to 'Edit', edit_especialidade_path(especialidade) %></td>
-        <td><%= link_to 'Destroy', especialidade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="panel panel-default">
+ <div class="panel-heading"></div>
+ <div class="panel-body">
+  <%= render partial: 'layouts/search_form', locals: { search_entity: 'especialidades', word: "Especialidades" } %>
+  <br>
+  <div class="col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5">
+   <p>
+     <%= link_to  new_especialidade_path, remote: true, class: "btn btn-primary" do %> 
+   <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Nueva Especialidad
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Especialidade', new_especialidade_path %>
+    
+     <%= link_to  new_medico_path, remote: true, class: "btn btn-primary" do %> 
+   <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Registrar Medico
+    <% end %>
+   </p>
+  </div>
+  
+  
+ </div>
+ <%= render partial: 'result_search' %>
+</div>

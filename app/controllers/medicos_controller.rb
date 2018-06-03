@@ -1,10 +1,38 @@
 class MedicosController < ApplicationController
-  before_action :set_medico, only: [:show, :edit, :update, :destroy]
+
 
   # GET /medicos
   # GET /medicos.json
+  PAGE_SIZE = 5
   def index
-    @medicos = Medico.all
+  
+      
+      @page = (params[:page] || 0).to_i
+
+   if params[:keywords].present?
+     @keywords = params[:keywords]
+     @medicos = Medico.where("lower(ci) LIKE '%#{@keywords.downcase}%'").order("ci ASC" )
+                    .offset(PAGE_SIZE * @page).limit(PAGE_SIZE)
+     number_of_records = Medico.where("lower(ci) LIKE '%#{@keywords.downcase}%'").count
+
+       else
+     @medicos = Medico.order('ci ASC').offset(PAGE_SIZE * @page).limit(PAGE_SIZE)
+     number_of_records = Medico.count
+   end
+   @number_of_pages = (number_of_records % PAGE_SIZE) == 0 ? 
+                       number_of_records / PAGE_SIZE - 1 : number_of_records / PAGE_SIZE
+
+                       respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = MedicosPdf.new(@medicos)
+        send_data pdf.render, filename: 'medicos.pdf', type: 'application/pdf', disposition: 'inline'
+      end
+    end
+                        
+                        
+
+
   end
 
   # GET /medicos/1
@@ -28,7 +56,7 @@ class MedicosController < ApplicationController
 
     respond_to do |format|
       if @medico.save
-        format.html { redirect_to @medico, notice: 'Medico was successfully created.' }
+        format.html { redirect_to medicos_url, notice: 'Medico creado exitosamente.' }
         format.json { render :show, status: :created, location: @medico }
       else
         format.html { render :new }
@@ -42,7 +70,7 @@ class MedicosController < ApplicationController
   def update
     respond_to do |format|
       if @medico.update(medico_params)
-        format.html { redirect_to @medico, notice: 'Medico was successfully updated.' }
+        format.html { redirect_to medicos_url, notice: 'Medico was successfully updated.' }
         format.json { render :show, status: :ok, location: @medico }
       else
         format.html { render :edit }
@@ -69,6 +97,6 @@ class MedicosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def medico_params
-      params.require(:medico).permit(:ci, :nro_registo, :nombre, :apellido, :direccion, :telefono, :celular, :fecha, :correo, :contacto_familiar, :especialidade_id, :ciudade_id)
+      params.require(:medico).permit(:ci, :nro_registro, :nombre, :apellido,:fecha, :ciudade_id, :direccion, :telefono, :celular, :fecha_naci, :correo, :contacto_familiar, :especialidade_id, :sangre, :sexo_id)
     end
 end
