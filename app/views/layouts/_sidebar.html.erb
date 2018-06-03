@@ -37,6 +37,7 @@
           </a>
           <ul class="dropdown-menu forAnimate" role="menu">
             <li class="<%= current_page?(medicos_path) ? "active" : "" %>"><%= link_to 'Medicos', medicos_path %></li>
+             <li class="<%= current_page?(enfermeros_path) ? "active" : "" %>"><%= link_to 'Enfermeros', enfermeros_path %></li>
              <li class="<%= current_page?(especialidades_path) ? "active" : "" %>"><%= link_to 'Especialidades', especialidades_path %></li>
               
           </ul>
@@ -50,6 +51,7 @@
           </a>
           <ul class="dropdown-menu forAnimate" role="menu">
             <li class="<%= current_page?(categories_path) ? "active" : "" %>"><%= link_to 'Categorías', categories_path %></li>
+            <li class="<%= current_page?(cargos_path) ? "active" : "" %>"><%= link_to 'Cargos', cargos_path %></li>
             <li class="<%= current_page?(brands_path) ? "active" : "" %>"><%= link_to 'Marcas', brands_path %></li>
              <li class="<%= current_page?(departamentos_path) ? "active" : "" %>"><%= link_to 'Departamentos', departamentos_path %></li>
              <li class="<%= current_page?(ciudades_path) ? "active" : "" %>"><%= link_to 'Ciuades', ciudades_path %></li>

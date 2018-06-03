@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :enfermeros
+  resources :cargos
   resources :medicos
   resources :sexos
   resources :especialidades

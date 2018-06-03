@@ -1,0 +1,1 @@
+json.array! @enfermeros, partial: 'enfermeros/enfermero', as: :enfermero

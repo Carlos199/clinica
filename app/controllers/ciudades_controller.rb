@@ -93,6 +93,6 @@ class CiudadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ciudade_params
-      params.require(:ciudade).permit(:nombre, :departamento_id, :codigo)
+      params.require(:ciudade).permit(:nombre, :codigoPostal, :departamento_id, :codigo)
     end
 end

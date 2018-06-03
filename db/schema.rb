@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603021834) do
+ActiveRecord::Schema.define(version: 20180603152309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20180603021834) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_brands_on_name", using: :btree
+  end
+
+  create_table "cargos", force: :cascade do |t|
+    t.string   "codigo"
+    t.string   "nombre"
+    t.text     "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -35,6 +43,7 @@ ActiveRecord::Schema.define(version: 20180603021834) do
     t.integer  "departamento_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "codigoPostal"
     t.index ["departamento_id"], name: "index_ciudades_on_departamento_id", using: :btree
   end
 
@@ -45,6 +54,25 @@ ActiveRecord::Schema.define(version: 20180603021834) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["regione_id"], name: "index_departamentos_on_regione_id", using: :btree
+  end
+
+  create_table "enfermeros", force: :cascade do |t|
+    t.string   "ci"
+    t.string   "nro_registro"
+    t.string   "nombre"
+    t.string   "apellido"
+    t.string   "direccion"
+    t.integer  "ciudade_id"
+    t.integer  "cargo_id"
+    t.string   "telefono"
+    t.string   "celular"
+    t.string   "contacto_familiar"
+    t.string   "correo"
+    t.string   "foto"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["cargo_id"], name: "index_enfermeros_on_cargo_id", using: :btree
+    t.index ["ciudade_id"], name: "index_enfermeros_on_ciudade_id", using: :btree
   end
 
   create_table "especialidades", force: :cascade do |t|
@@ -155,6 +183,8 @@ ActiveRecord::Schema.define(version: 20180603021834) do
 
   add_foreign_key "ciudades", "departamentos"
   add_foreign_key "departamentos", "regiones"
+  add_foreign_key "enfermeros", "cargos"
+  add_foreign_key "enfermeros", "ciudades"
   add_foreign_key "items", "brands"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "units"
