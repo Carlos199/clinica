@@ -1,0 +1,71 @@
+<%= form_for(proveedore) do |f| %>
+  <% if proveedore.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(proveedore.errors.count, "error") %> prohibited this proveedore from being saved:</h2>
+
+      <ul>
+      <% proveedore.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ci %>
+    <%= f.text_field :ci %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nombre %>
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= f.label :apellido %>
+    <%= f.text_field :apellido %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ciudade_id %>
+    <%= f.collection_select :ciudade_id, Ciudade.all, :id, :nombre, 
+                  {selected: @proveedore.ciudade_id, include_blank: 'Seleccione ciudad'},
+                  {class: "form-control"} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :direccion %>
+    <%= f.text_field :direccion %>
+  </div>
+
+  <div class="field">
+    <%= f.label :empresa_id %>
+    <%= f.collection_select :empresa_id, Empresa.all, :id, :siglas, 
+                  {selected: @proveedore.empresa_id, include_blank: 'Seleccione ciudad'},
+                  {class: "form-control"} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telefono %>
+    <%= f.text_field :telefono %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cellular %>
+    <%= f.text_field :cellular %>
+  </div>
+
+  <div class="field">
+    <%= f.label :correo %>
+    <%= f.text_field :correo %>
+  </div>
+
+  <div class="field">
+    <%= f.label :foto %>
+    <%= f.text_field :foto %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

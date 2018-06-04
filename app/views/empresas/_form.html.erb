@@ -1,0 +1,72 @@
+<%= form_for(empresa) do |f| %>
+  <% if empresa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(empresa.errors.count, "error") %> prohibited this empresa from being saved:</h2>
+
+      <ul>
+      <% empresa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :codigo %>
+    <%= f.text_field :codigo %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nombre %>
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ruc %>
+    <%= f.text_field :ruc %>
+  </div>
+
+  <div class="field">
+    <%= f.label :siglas %>
+    <%= f.text_field :siglas %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ciudade_id %>
+    <%= f.text_field :ciudade_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :direccion %>
+    <%= f.text_field :direccion %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telefono1 %>
+    <%= f.text_field :telefono1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telefono2 %>
+    <%= f.text_field :telefono2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :correo %>
+    <%= f.text_field :correo %>
+  </div>
+
+  <div class="field">
+    <%= f.label :pagina %>
+    <%= f.text_field :pagina %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.text_field :image %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

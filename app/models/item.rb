@@ -21,6 +21,8 @@ class Item < ApplicationRecord
   belongs_to :category
 
   validates :description, presence: true
+    has_many :detallepedidos
+    has_many :pedidos, through: :detallepedidos
 
   def item_description
   	self.description + ( (self.brand != nil) ? ' ' + self.brand.name : '' )

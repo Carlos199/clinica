@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603222835) do
+ActiveRecord::Schema.define(version: 20180604033914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,35 @@ ActiveRecord::Schema.define(version: 20180603222835) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["regione_id"], name: "index_departamentos_on_regione_id", using: :btree
+  end
+
+  create_table "detallepedidos", force: :cascade do |t|
+    t.integer  "solicitado"
+    t.integer  "surtido"
+    t.integer  "pedido_id"
+    t.integer  "item_id"
+    t.string   "observaciones"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["item_id"], name: "index_detallepedidos_on_item_id", using: :btree
+    t.index ["pedido_id"], name: "index_detallepedidos_on_pedido_id", using: :btree
+  end
+
+  create_table "empresas", force: :cascade do |t|
+    t.string   "codigo"
+    t.string   "nombre"
+    t.string   "ruc"
+    t.string   "siglas"
+    t.integer  "ciudade_id"
+    t.string   "direccion"
+    t.string   "telefono1"
+    t.string   "telefono2"
+    t.string   "correo"
+    t.string   "pagina"
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ciudade_id"], name: "index_empresas_on_ciudade_id", using: :btree
   end
 
   create_table "enfermeros", force: :cascade do |t|
@@ -144,6 +173,33 @@ ActiveRecord::Schema.define(version: 20180603222835) do
     t.index ["sexo_id"], name: "index_pacientes_on_sexo_id", using: :btree
   end
 
+  create_table "pedidos", force: :cascade do |t|
+    t.integer  "codigo"
+    t.integer  "proveedore_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["proveedore_id"], name: "index_pedidos_on_proveedore_id", using: :btree
+    t.index ["user_id"], name: "index_pedidos_on_user_id", using: :btree
+  end
+
+  create_table "proveedores", force: :cascade do |t|
+    t.string   "ci"
+    t.string   "nombre"
+    t.string   "apellido"
+    t.integer  "ciudade_id"
+    t.string   "direccion"
+    t.integer  "empresa_id"
+    t.string   "telefono"
+    t.string   "cellular"
+    t.string   "correo"
+    t.string   "foto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ciudade_id"], name: "index_proveedores_on_ciudade_id", using: :btree
+    t.index ["empresa_id"], name: "index_proveedores_on_empresa_id", using: :btree
+  end
+
   create_table "regiones", force: :cascade do |t|
     t.string   "codigo"
     t.string   "nombre"
@@ -212,6 +268,9 @@ ActiveRecord::Schema.define(version: 20180603222835) do
 
   add_foreign_key "ciudades", "departamentos"
   add_foreign_key "departamentos", "regiones"
+  add_foreign_key "detallepedidos", "items"
+  add_foreign_key "detallepedidos", "pedidos"
+  add_foreign_key "empresas", "ciudades"
   add_foreign_key "enfermeros", "cargos"
   add_foreign_key "enfermeros", "ciudades"
   add_foreign_key "items", "brands"
@@ -222,6 +281,10 @@ ActiveRecord::Schema.define(version: 20180603222835) do
   add_foreign_key "medicos", "sexos"
   add_foreign_key "pacientes", "ciudades"
   add_foreign_key "pacientes", "sexos"
+  add_foreign_key "pedidos", "proveedores"
+  add_foreign_key "pedidos", "users"
+  add_foreign_key "proveedores", "ciudades"
+  add_foreign_key "proveedores", "empresas"
   add_foreign_key "sales", "forma_pagos"
   add_foreign_key "sales", "pacientes"
 end

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :detallepedidos
+  resources :pedidos
+  resources :proveedores
+  resources :empresas
   resources :forma_pagos
   resources :pacientes
   resources :enfermeros
