@@ -164,14 +164,15 @@
    
     </thead>
    </table>
-  <div class="form-group row">
-    <div class="col-xs-10">
-       <div class="col-xs-7">
-    </div>
-   <%= form.submit "Aceptar", class: "btn btn-success" %>
-   <%= link_to 'Cancelar', pacientes_path, class: "btn btn-success" %>
-        </div>
-      </div>
+  
+   <div class="group navform wat-cf">
+  <button class="button" type="submit">
+    <%= image_tag("web-app-theme/tick.png", :alt => "#{t("web-app-theme.save", :default => "Salvar")}") %> <%= t("web-app-theme.save", :default => "Salvar") %>
+  </button>  
+  <%= link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.cancel", :default => "Cancelar")}")} #{t("web-app-theme.cancel", :default => "Cancelar")}", pacientes_path, :class => "button" %> 
+</div>
+
+     
     <% end %>
     </div>
   </div>

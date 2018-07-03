@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180604033914) do
+ActiveRecord::Schema.define(version: 20180614020626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,20 @@ ActiveRecord::Schema.define(version: 20180604033914) do
     t.index ["departamento_id"], name: "index_ciudades_on_departamento_id", using: :btree
   end
 
+  create_table "consultas", force: :cascade do |t|
+    t.datetime "data"
+    t.float    "preco"
+    t.string   "nome_plano"
+    t.string   "tipo_plano"
+    t.string   "tipo_consula"
+    t.integer  "medico_id"
+    t.integer  "paciente_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["medico_id"], name: "index_consultas_on_medico_id", using: :btree
+    t.index ["paciente_id"], name: "index_consultas_on_paciente_id", using: :btree
+  end
+
   create_table "departamentos", force: :cascade do |t|
     t.string   "codigo"
     t.string   "nombre"
@@ -54,6 +68,13 @@ ActiveRecord::Schema.define(version: 20180604033914) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["regione_id"], name: "index_departamentos_on_regione_id", using: :btree
+  end
+
+  create_table "detalle_dias", force: :cascade do |t|
+    t.time     "horaini"
+    t.time     "horafin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "detallepedidos", force: :cascade do |t|
@@ -66,6 +87,12 @@ ActiveRecord::Schema.define(version: 20180604033914) do
     t.datetime "updated_at",    null: false
     t.index ["item_id"], name: "index_detallepedidos_on_item_id", using: :btree
     t.index ["pedido_id"], name: "index_detallepedidos_on_pedido_id", using: :btree
+  end
+
+  create_table "dias", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "empresas", force: :cascade do |t|
@@ -111,10 +138,31 @@ ActiveRecord::Schema.define(version: 20180604033914) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "estados", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "forma_pagos", force: :cascade do |t|
     t.string   "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "has_horarios", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "horarios", force: :cascade do |t|
+    t.time     "horaIni"
+    t.time     "horaFin"
+    t.integer  "medico_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "dia_id"
+    t.index ["medico_id"], name: "index_horarios_on_medico_id", using: :btree
   end
 
   create_table "items", force: :cascade do |t|
@@ -207,6 +255,20 @@ ActiveRecord::Schema.define(version: 20180604033914) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reservas", force: :cascade do |t|
+    t.date     "fecha"
+    t.time     "hora"
+    t.string   "observaciones"
+    t.integer  "paciente_id"
+    t.integer  "medico_id"
+    t.integer  "estado_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["estado_id"], name: "index_reservas_on_estado_id", using: :btree
+    t.index ["medico_id"], name: "index_reservas_on_medico_id", using: :btree
+    t.index ["paciente_id"], name: "index_reservas_on_paciente_id", using: :btree
+  end
+
   create_table "sale_details", force: :cascade do |t|
     t.integer  "sale_id"
     t.integer  "number"
@@ -267,12 +329,15 @@ ActiveRecord::Schema.define(version: 20180604033914) do
   end
 
   add_foreign_key "ciudades", "departamentos"
+  add_foreign_key "consultas", "medicos"
+  add_foreign_key "consultas", "pacientes"
   add_foreign_key "departamentos", "regiones"
   add_foreign_key "detallepedidos", "items"
   add_foreign_key "detallepedidos", "pedidos"
   add_foreign_key "empresas", "ciudades"
   add_foreign_key "enfermeros", "cargos"
   add_foreign_key "enfermeros", "ciudades"
+  add_foreign_key "horarios", "medicos"
   add_foreign_key "items", "brands"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "units"
@@ -285,6 +350,9 @@ ActiveRecord::Schema.define(version: 20180604033914) do
   add_foreign_key "pedidos", "users"
   add_foreign_key "proveedores", "ciudades"
   add_foreign_key "proveedores", "empresas"
+  add_foreign_key "reservas", "estados"
+  add_foreign_key "reservas", "medicos"
+  add_foreign_key "reservas", "pacientes"
   add_foreign_key "sales", "forma_pagos"
   add_foreign_key "sales", "pacientes"
 end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  horaIni: 2018-06-07 16:16:28
+  horaFin: 2018-06-07 16:16:28
+  dia: one
+  medico: one
+
+two:
+  horaIni: 2018-06-07 16:16:28
+  horaFin: 2018-06-07 16:16:28
+  dia: two
+  medico: two

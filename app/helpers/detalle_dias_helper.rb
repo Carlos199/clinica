@@ -1,0 +1,2 @@
+module DetalleDiasHelper
+end

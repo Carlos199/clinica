@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @reserva.fecha %>
+</p>
+
+<p>
+  <strong>Hora:</strong>
+  <%= @reserva.hora %>
+</p>
+
+<p>
+  <strong>Observaciones:</strong>
+  <%= @reserva.observaciones %>
+</p>
+
+<p>
+  <strong>Paciente:</strong>
+  <%= @reserva.paciente %>
+</p>
+
+<p>
+  <strong>Medico:</strong>
+  <%= @reserva.medico %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @reserva.estado %>
+</p>
+
+<%= link_to 'Edit', edit_reserva_path(@reserva) %> |
+<%= link_to 'Back', reservas_path %>

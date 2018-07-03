@@ -74,7 +74,7 @@ class PedidosController < ApplicationController
       @pedido = Pedido.find(params[:id])
     end
  def pedido_params
-      params.require(:pedido).permit(:codigo, :proveedore_id, :user_id, detallepedidos_attributes: [:solicitado, :observaciones, :item_id])
+      params.require(:pedido).permit(:codigo, :proveedore_id, :user_id, detallepedidos_attributes: [:solicitado, :surtido, :observaciones, :item_id])
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     

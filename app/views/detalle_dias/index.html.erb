@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Detalle Dias</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Horaini</th>
+      <th>Horafin</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @detalle_dias.each do |detalle_dia| %>
+      <tr>
+     
+        <td><%= detalle_dia.horaini.strftime("%R") %> A</td>
+        <td><%= detalle_dia.horafin.strftime("%R" "%P") %></td>
+        <td><%= link_to 'Show', detalle_dia %></td>
+        <td><%= link_to 'Edit', edit_detalle_dia_path(detalle_dia) %></td>
+        <td><%= link_to 'Destroy', detalle_dia, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Detalle Dia', new_detalle_dia_path %>

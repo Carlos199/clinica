@@ -1,18 +1,46 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shop</title>
+    <title>Sanasys</title>
     <%= csrf_meta_tags %>
-
+ <%= stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/drastic-dark/style", :cache => true %>
+  <%= javascript_include_tag 'jquery-1.3.2' %>
+  <%= javascript_include_tag 'jquery.maskedinput-1.2.2.js'%>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body class="<%= controller_name %> <%= action_name %>" id="<%= controller_name %>-<%= action_name %>">
     <%= render 'layouts/topbar' %>
+
+ <div id="container">
+    <div id="header">
+      <h1><a href="/">SysClinica</a></h1>
+      <div id="user-navigation">
+        <ul class="wat-cf">
+          <% if user_signed_in? %>
+            <li style="color: #FFF;">Bem vindo, <%= current_user.email %></li>
+            <li><a href="/users/edit"><%= t("web-app-theme.profile", :default => "Perfil") %></a></li>
+            <li><a href="/users/sign_out" class="logout"><%= t("web-app-theme.logout", :default => "Logout") %></a></li>
+            <% else %>
+          <li><a href="/users/sign_up"><%= t("web-app-theme.register", :default => "Registrar") %></a></li>
+                      <li><a href="/users/sign_in" class="logout"><%= t("web-app-theme.logout", :default => "Login") %></a></li>
+          <%end%>
+        </ul>
+      </div>
+
+ <div id="main-navigation">
+        <ul class="wat-cf"> <li class="<%= controller.controller_path == 'medicos' ? 'active' : '' %>"><a href="<%= medicos_path %>">Medicos</a></li> <li class="<%= controller.controller_path == 'pacientes' ? 'active' : '' %>"><a href="<%= pacientes_path %>">Pacientes</a></li> <li class="<%= controller.controller_path == 'consultas' ? 'active' : '' %>"><a href="<%= consultas_path %>">Consultas</a></li> <li class="<%= controller.controller_path == 'horarios' ? 'active' : '' %>"><a href="<%= horarios_path %>">Horarios</a></li> <li class="<%= controller.controller_path == 'ciudades' ? 'active' : '' %>"><a href="<%= ciudades_path %>">Pacientes</a></li> <li class="<%= controller.controller_path == 'items' ? 'active' : '' %>"><a href="<%= items_path %>">Insumos</a></li></ul>
+      </div>
+    </div>
+
+
+
+
 
     <% if user_signed_in? %>
       <div class="container-fluid">
@@ -33,8 +61,15 @@
           <%= render 'layouts/alerts' %>
         </div>
       </div>
-    
-      <%= yield %>
+     <%= yield %>
+        <div id="footer">
+          <div class="block">
+            <p>Copyright &copy; <%= Time.now.year %> SysClinica.</p>
+          </div>
+        </div>
+      </div>
+      <div id="sidebar">
+        <%= yield :sidebar %>
     <% end %>
   </body>
 </html>

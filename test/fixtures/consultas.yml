@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data: 2018-06-08 18:44:58
+  preco: 1.5
+  nome_plano: MyString
+  tipo_plano: MyString
+  tipo_consula: MyString
+  medico: one
+  paciente: one
+
+two:
+  data: 2018-06-08 18:44:58
+  preco: 1.5
+  nome_plano: MyString
+  tipo_plano: MyString
+  tipo_consula: MyString
+  medico: two
+  paciente: two

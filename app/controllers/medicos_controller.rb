@@ -32,7 +32,6 @@ class MedicosController < ApplicationController
                         
                         
 
-
   end
 
   # GET /medicos/1

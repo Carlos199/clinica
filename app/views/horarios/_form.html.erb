@@ -1,0 +1,51 @@
+<div class="col-md-10 well">
+<%= form_for(horario) do |f| %>
+  <% if horario.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(horario.errors.count, "error") %> prohibited this horario from being saved:</h2>
+
+      <ul>
+      <% horario.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h1 align="center">Nuevo Horario</h1>
+<div align="center">
+  <div class="field">
+    <%= f.label :horaIni %>
+    <%= f.time_select :horaIni %>
+  </div>
+
+  <div class="field">
+    <%= f.label :horaFin %>
+    <%= f.time_select :horaFin %>
+  </div>
+
+  <div class="field">
+     <label>Dias</label>
+   
+    <% @dias.each do |dia| %>
+    <div>
+    <%= check_box_tag "dias[]", dia.id %> <%= dia.nombre %>
+    </div>
+    
+   <%end%>
+  </div>
+
+  <div class="field">
+    <%= f.label :medico_id %>
+    <%= f.collection_select(:medico_id, Medico.all, :id, :nombre, prompt: "Seleccione una Medico") %>
+    <br><br>
+  </div>
+  <br><br>
+ <%= button_tag( :class => "btn btn-success") do %>
+      <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+    <% end %>
+    <%= link_to horarios_path, class:"btn btn-primary" do%>
+    <i class="glyphicon glyphicon-repeat"></i> Regresar
+    <% end %>
+     <% end %>
+     </div>
+</div>

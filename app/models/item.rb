@@ -35,4 +35,12 @@ class Item < ApplicationRecord
   		''
   	end
   end
+  private
+    def self.disponibilidad(status)
+      if status == "disponible"
+        Item.where("stock > ?", 0).count
+      elsif status == "agotado"
+        Item.where("stock <= ?", 0).count
+      end
+    end
 end

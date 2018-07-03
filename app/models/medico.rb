@@ -26,6 +26,9 @@ class Medico < ApplicationRecord
     belongs_to :ciudade
     has_many :reservas
     has_many :sexos
+
+     has_many :pacientes,  :through => :consultas
+  has_many :consultas
      def completo
          "#{nombre}" +".."+"#{apellido}"
   end

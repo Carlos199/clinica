@@ -151,7 +151,7 @@
   <%= form.label :especialidad_id %>
   </div>
  <div class="col-xs-6">
-     <%= form.collection_select :especialidade_id, Especialidade.all, :id, :nombre, 
+     <%= form.collection_select :especialidade_id, Especialidade.all, :id, :descripcion, 
                   {selected: @medico.especialidade_id, include_blank: 'Seleccione especialidad'},
                   {class: "form-control"} %>
      

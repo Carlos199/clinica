@@ -85,6 +85,6 @@ class EspecialidadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def especialidade_params
-      params.require(:especialidade).permit(:descripcion)
+      params.require(:especialidade).permit(:descripcion, :codigo)
     end
 end

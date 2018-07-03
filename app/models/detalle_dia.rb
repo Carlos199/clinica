@@ -1,0 +1,2 @@
+class DetalleDia < ApplicationRecord
+end

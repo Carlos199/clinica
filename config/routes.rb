@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :detalle_dias
+  resources :consultas
+  resources :dias
+  resources :reservas
+  resources :estados
+  resources :horarios
   resources :detallepedidos
   resources :pedidos
   resources :proveedores

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  horaini: 2018-06-13 22:06:26
+  horafin: 2018-06-13 22:06:26
+
+two:
+  horaini: 2018-06-13 22:06:26
+  horafin: 2018-06-13 22:06:26
